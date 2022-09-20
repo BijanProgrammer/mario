@@ -9,15 +9,12 @@ namespace Portal.Controllers;
 public class ExecuteController : ControllerBase
 {
     private Context _context;
-    private IPipelineService _pipelineService;
-    private IJsonConvertorService _jsonConvertorService;
+    private readonly IPipelineService _pipelineService;
 
-    public ExecuteController(Context context, IPipelineService pipelineService,
-        IJsonConvertorService jsonConvertorService)
+    public ExecuteController(Context context, IPipelineService pipelineService)
     {
         _context = context;
         _pipelineService = pipelineService;
-        _jsonConvertorService = jsonConvertorService;
     }
 
     [HttpGet]

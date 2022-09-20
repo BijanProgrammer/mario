@@ -1,4 +1,5 @@
 ﻿using Npgsql;
+using Portal.Models;
 using Portal.Plugins.Abstractions;
 using Portal.Plugins.Concretes;
 using Portal.Services.Abstractions;
@@ -7,7 +8,16 @@ namespace Portal.Services.Concretes;
 
 public class PipelineService : IPipelineService
 {
-    private List<IPlugin> Plugins { get; set; } = new() { new FilterPlugin() };
+    private List<IPlugin> Plugins { get; set; } = new()
+    {
+        new FilterPlugin()
+        {
+            Id = 1,
+            Column = "Username",
+            Operator = LogicalOperator.Equal,
+            DesiredValue = "BijanProgrammer"
+        }
+    };
 
     private readonly IJsonConvertorService _jsonConvertorService;
 
@@ -23,9 +33,11 @@ public class PipelineService : IPipelineService
         using var connection = new NpgsqlConnection(connectionString);
         connection.Open();
 
-        var query = Plugins[0].GenerateQuery();
+        var (query, parameters) = Plugins[0].GenerateQuery();
 
         using var command = new NpgsqlCommand(query, connection);
+        command.Parameters.AddRange(parameters.ToArray());
+
         using var reader = command.ExecuteReader();
 
         return _jsonConvertorService.ConvertDbDataReaderToJson(reader);
