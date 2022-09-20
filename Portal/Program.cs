@@ -1,5 +1,8 @@
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Portal.Database;
+using Portal.Services.Abstractions;
+using Portal.Services.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,9 @@ builder.Services.AddDbContext<Context>(optionsBuilder =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddSingleton<IJsonConvertorService, JsonConvertorService>();
+builder.Services.AddSingleton<IPipelineService, PipelineService>();
 
 var app = builder.Build();
 
