@@ -1,6 +1,6 @@
 ﻿using System.Data.Common;
 
-namespace Portal.Services.Abstractions;
+namespace Portal.Services.Interfaces;
 
 public interface IJsonConvertorService
 {

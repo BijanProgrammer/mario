@@ -1,7 +1,7 @@
 ﻿using System.Data.Common;
 using System.Text;
 using Newtonsoft.Json;
-using Portal.Services.Abstractions;
+using Portal.Services.Interfaces;
 
 namespace Portal.Services.Concretes;
 

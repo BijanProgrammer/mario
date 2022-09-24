@@ -1,8 +1,8 @@
 using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Portal.Database;
-using Portal.Services.Abstractions;
 using Portal.Services.Concretes;
+using Portal.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Npgsql;
+﻿using Npgsql;
 using Portal.Models;
-using Portal.Plugins.Abstractions;
-using Portal.Services.Abstractions;
 using Portal.Utils;
 
-namespace Portal.Plugins.Concretes;
+namespace Portal.Plugins;
 
-public class FilterPlugin : IPlugin
+public class FilterPlugin : Plugin
 {
     public int Id { get; set; }
     public string Column { get; set; }
@@ -15,7 +12,7 @@ public class FilterPlugin : IPlugin
     public string DesiredValue { get; set; }
 
 
-    public (string query, List<NpgsqlParameter> parameters) GenerateQuery()
+    public override (string query, List<NpgsqlParameter> parameters) GenerateQuery()
     {
         var desiredValueParameter = $"Plugin{Id}DesiredValue";
 
